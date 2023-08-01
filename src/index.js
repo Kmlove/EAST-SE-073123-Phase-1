@@ -66,7 +66,6 @@ function renderBook(book){
 
 // renderBook(bookStore.inventory[1]);
 
-bookStore.inventory.forEach(book => renderBook(book));
-
 //✅ 7. iterate over all the books in data and show book on page
 
+bookStore.inventory.forEach(book => renderBook(book));
