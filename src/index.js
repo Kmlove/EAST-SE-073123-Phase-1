@@ -64,30 +64,61 @@ const inventory = [
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/41oYsXjLvZL._SY344_BO1,204,203,200_.jpg'
   }
 ]
+let firstBook = inventory[0];
 
 //✅ 1. Create hello world using REGULAR functions
 function helloWorld(){
-  return
+  console.log("hello world!");
+  return "Hello World";
 }
+
+
 //✅ 2. For Easley's bookstore, create formatPrice(price)
+function formatPrice(price){
+  //make string in the format $xx.xx
+  //round properly, limit to 2 decimal spaces
+  let fixedPrice = price.toFixed(2);
+  let dollarPrice = `$${fixedPrice}`;
+  return dollarPrice;
+}
 
 //✅ 3. Make an arrow function version of formatPrice
+const arrowFormatPrice = (price) => `$${price.toFixed(2)}`;
+
 
 //✅ 4. WE DO: create a blurb() function that accepts a book as an argument and logs a message in the following format:
 //'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
+const blurb = (book) => {
+  let title = book.title;
+  let price = book.price;
+  let formattedPrice = formatPrice(price);
+  return `${title} is on sale for ${formattedPrice}`;
+}
+
 
 //✅ 5. Call formatPrice on an array of prices
 
 //✅ 5a. Create an array
-
+let priceList = [3.33333, 215.4242, 354.454];
 //✅ 5b. Use a for loop to iterate over prices
+// a loop that runs for each thing in priceList
+// start at 0, end at the end of priceList, increment by 1
+for(let i = 0; i < priceList.length; i++){
+  // console.log(i);
+  // console.log(priceList[i]);
+  console.log(formatPrice(priceList[i]));
+}
 
 //✅ 5c. Use .forEach to iterate over prices
+//arrary.forEach(el, cbFunction)
+priceList.forEach(price => console.log(formatPrice(price)));
 
 //✅ 5d. Use .map to iterate over prices
+priceList.map(price => console.log(formatPrice(price)));
 
 //✅ 5e. using .map, for each book in inventory, return blurb(book)
 //output: ['Eloquent JavaScript: A Modern Introduction to Programming is on sale for $10.00', ...]
+let blurbs = inventory.map(book => blurb(book));
 
 //✅ 6. Create a version of myMap that uses a for loop to mimic .map
 //input: array, callback function
