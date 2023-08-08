@@ -7,6 +7,7 @@ function renderBook(book) {
 	const imgNode = document.createElement("img");
 	const deleteBtn = document.createElement("button");
 	const pInventory = document.createElement("input");
+	const id = book.id
 
 	li.className = "card";
 	titleNode.textContent = book.title;
@@ -18,13 +19,30 @@ function renderBook(book) {
 
 	deleteBtn.textContent = "Delete";
 	deleteBtn.addEventListener("click", (e) => {
-
+		//li.remove() optimistic rendering
+		
 		//✅ 2a. update the server with a delete request
-
+		fetch(`${url}/books/${id}`, {
+			method: "DELETE",
+			headers: {
+				"text-content": "application/json",
+				"accept": "application/json"
+			}
+		})
+		.then(res => res.json())
+		//nothing in parenthesis b/c DELETE doesn't send back a response
+		.then(()=>{
+			li.remove() //pessemistic rendering
+		})
+		.catch(err => alert("Something went wrong! The book was not deleted. Please try again later."))
 	});
 
 	//✅ 3. update the inventory
 	//✅ 3a. add an onChange event handler
+	pInventory.addEventListener("change", (e) => {
+		console.log(e)
+	})
+	
 
 	//✅ 4. generate CSS using chatGPT in chatgpt_style.css
 
