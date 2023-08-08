@@ -40,7 +40,19 @@ function renderBook(book) {
 	//✅ 3. update the inventory
 	//✅ 3a. add an onChange event handler
 	pInventory.addEventListener("change", (e) => {
-		console.log(e)
+		let newInventory = e.target.value;
+
+		fetch(`${url}/books/${id}`, {
+			method: "PATCH",
+			headers: {
+				"content-type" : "application/json",
+				"accept": "application/json"
+			},
+			body: JSON.stringify({inventory: newInventory})
+		})
+		.then(res => res.json())
+		.then(data =>{})
+		.catch(err => alert("Something went wrong! We cannot update the inventory at this time. Please try again later."))
 	})
 	
 
