@@ -52,15 +52,42 @@ storeForm.addEventListener("submit", (e) => {
 		location: e.target.location.value,
 	};
 	if (storeEditMode) {
-		//✅ 1. update new store in database
+		//✅ 1. update new store in database (PATCH)
 		//✅ 1a. create marker for current store in editStoreButton on click event
+		//get id from dropdown
     	//✅ 1b. update the store in the DOM - pessimistic rendering - and persist store
-		
+		let id = storeSelector.value
+
+		fetch(`${url}/stores/${id}`, {
+			method: "PATCH",
+			headers: {
+				"content-type": "application/json",
+				"accept": "application/json"
+			},
+			body: JSON.stringify(store)
+		})
+		.then(res => res.json())
+		.then(data => {
+			renderHeader(data)
+			renderFooter(data)
+		})
+		.catch(err => alert("Something went wrong! Your store was not updated. Please try again later."))
 
 	//✅ 1c. create new store and add to database
 	} else {
-
+		fetch(`${url}/stores`, {
+			method: "POST",
+			headers: {
+				"content-type": "application/json",
+				"accept": "application/json"
+			},
+			body: JSON.stringify(store)
+		})
+		.then(res => res.json())
+		.then(data => addSelectOptionForStore(data))
+		.catch(err => alert("Something went wrong! Your store was not added to the page. Please try again later."))
 	}
+
 	hideStoreForm();
 	e.target.reset();
 });
