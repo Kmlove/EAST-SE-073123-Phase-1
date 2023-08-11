@@ -27,7 +27,7 @@ function renderBook(book) {
 			headers: {
 				"text-content": "application/json",
 				"accept": "application/json"
-			}
+			} // don't neccesarly need headers for DELETE
 		})
 		.then(res => res.json())
 		//nothing in parenthesis b/c DELETE doesn't send back a response
@@ -47,7 +47,7 @@ function renderBook(book) {
 			headers: {
 				"content-type" : "application/json",
 				"accept": "application/json"
-			}, // don't neccesarly need headers for DELETE
+			}, 
 			body: JSON.stringify({inventory: newInventory})
 		})
 		.then(res => res.json())
